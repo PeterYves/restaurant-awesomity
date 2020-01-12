@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>NAME</strong>
+  <%= @resto.name %>
+</p>
+
+<p>
+  <strong>PHOTO</strong>
+  <%= image_tag @resto.photo.url %>
+</p>
+
+<p>
+  <strong>WEBSITE</strong>
+  <%= @resto.website %>
+</p>
+
+<p>
+  <strong>LOCATION</strong>
+  <%= @resto.location %>
+</p>
+
+<p>
+  <strong>ONLINE DELIVERY</strong>
+  <%= @resto.online_delivery %>
+</p>
+
+<p>
+  <strong>TABLE BOOKING</strong>
+  <%= @resto.table_booking %>
+</p>
+<h2>Menu</h2><br>
+<hr>
+<h3>Break Fast</h3>
+<% @resto.breakfasts.each do |breakfast| %>
+<div class="labels">
+Name:<%= breakfast.name + '       ' %> <br/>Price:<%= breakfast.price %>
+</div>
+<% end %>
+
+<h3>Lunch</h3>
+<% @resto.lunches.each do |lunch| %>
+<div class="labels">
+Name:<%= lunch.name + '       ' %> <br/>Price:<%= lunch.price %>
+</div>
+<% end %>
+
+<%= link_to 'Edit', edit_resto_path(@resto) %> |
+<%= link_to 'Back', restos_path %>

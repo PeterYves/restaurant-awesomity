@@ -1,0 +1,84 @@
+<%= form_with(model: resto, local: true) do |form| %>
+  <% if resto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(resto.errors.count, "error") %> prohibited this resto from being saved:</h2>
+
+      <ul>
+        <% resto.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Photo %>
+    <%= form.file_field :photo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Website %>
+    <%= form.text_field :website %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Online_Delivery %>
+    <%= form.select(:online_delivery, options_for_select([['yes','yes'],['no','no']])) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Table_Booking %>
+    <%= form.select(:table_booking, options_for_select([['yes','yes'],['no','no']])) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Cuisine %>
+    <%= form.text_field :cuisine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Currency %>
+    <%= form.select(:currency, options_for_select([['$','$'],['rwfs','rwfs']])) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Price_Range %>
+    <%= form.number_field :price_range %>
+  </div>
+
+  <hr>
+
+  <% Lunch.all.each do |lunch| %>
+  <% if current_user.id == lunch.user_id %>
+  <div class = "label">
+  
+  <%= lunch.name %>&nbsp;(<%= lunch.price %>)
+  <%= form.check_box :lunch_ids, { multiple: true, checked: lunch[:checked], disabled: lunch[:disabled], include_hidden: false }, lunch[:id] %>
+  </div>
+  <% end%>
+  <% end %>
+
+  <% Breakfast.all.each do |breakfast| %>
+  <% if current_user.id == breakfast.user_id %>
+  <div class = "label">
+  
+  <%= breakfast.name %>&nbsp;(<%= breakfast.price %>)
+  <%= form.check_box :breakfast_ids, { multiple: true, checked: breakfast[:checked], disabled: breakfast[:disabled], include_hidden: false }, breakfast[:id] %>
+  </div>
+  <% end%>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit class:'btn btn-success btn-sm' %>
+  </div>
+<% end %>

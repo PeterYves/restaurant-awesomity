@@ -1,0 +1,70 @@
+<div class="main">
+<%=image_tag "background.png", style:'width:100%' %>
+<div class="wrap">
+<h1>Find Nearby Restaurants</h1>
+   <%= search_form_for @q do |f| %>
+   <div class="search">
+   <%= f.text_field :location_cont,class:"searchTerm",placeholder:'What are you looking for?'%>
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+     <% end %>
+   </div>
+</div>
+</div>
+<div class="centre">
+  <h2>Our Restaurants</h2>
+  <% @restos.each do |resto| %>
+    <div class="card" style="width: 18rem;float:left;">
+      <%= link_to resto do %>
+            <%= image_tag resto.photo.url, class:'card-img-top', alt:'...' %>
+          <% end %>
+      
+      <div class="card-body">
+        <%=image_tag "restaurant.png" ,style:'float:left'%>
+        <h5 class="card-title"><%= resto.name %></h5>
+        <p class="card-text"><%= resto.currency %>&nbsp;-&nbsp;<%= resto.location %></p>
+        <%if current_user && resto.user_id==current_user.id%>
+        <%= link_to 'Edit', edit_resto_path(resto),class:'btn btn-warning btn-sm' %>
+        <%= link_to 'Destroy', resto, method: :delete, data: { confirm: 'Are you sure?' },class:'btn btn-danger btn-sm' %>
+        <% end %>
+      </div>
+    </div>
+      </tr>
+    <% end %>
+    <% if !current_user%>
+    <%= link_to 'Explore More',restos_path, class:'btn btn-sm',style:'background:#ff6000;color:white'%>
+    <% else %>
+    <%= link_to 'New Resto', new_resto_path %>
+    <% end %>
+    </div>
+</div>
+<div class='middle'>
+  <h2>How It Works?</h2>
+  <div class="middles" style="width: 16rem;border:none">
+  <%= image_tag "step1.png", class:"card-img-top", alt:"...", style:'width:70px;height:70px;' %>
+  <div class="card-body">
+    <h3 class="card-title" style="font-weght:bolder">Step uno</h3>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="middles" style="width: 16rem;border:none">
+  <%= image_tag "step2.png", class:"card-img-top", alt:"...", style:'width:70px;height:70px;' %>
+  <div class="card-body">
+    <h3 class="card-title" style="font-weght:bolder">Step dos</h3>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="middles" style="width: 16rem;border:none">
+  <%= image_tag "step3.png", class:"card-img-top", alt:"...", style:'width:70px;height:70px;' %>
+  <div class="card-body">
+    <h3 class="card-title" style="font-weght:bolder">Step tres</h3>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+<div class="red">
+  
+</div>
+
+
