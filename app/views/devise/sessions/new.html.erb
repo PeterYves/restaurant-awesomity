@@ -1,0 +1,53 @@
+
+<div class="card" style="width:30%;margin:auto;margin-top:60px;margin-bottom:60px">
+
+  <h5 class="card-header info-color white-text text-center py-4">
+    <strong>Sign in</strong>
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name),style:'#757575') do |f| %>
+      <!-- Email -->
+      <div class="md-form">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email",id:"materialLoginFormEmail",placeholder:'E-Mail',class:"form-control" %>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form">
+        <%= f.password_field :password, autocomplete: "current-password",id:"materialLoginFormPassword",placeholder:'Password', class:"form-control" %>
+        
+      </div>
+
+      <!-- Sign in button -->
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+      <!-- Register -->
+      <p>Not a member?
+        <%= link_to "Register", new_user_registration_path %>
+      </p>
+
+      <!-- Social login -->
+      <p>or sign in with:</p>
+      <a type="button" class="btn-floating btn-fb btn-sm">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a type="button" class="btn-floating btn-tw btn-sm">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a type="button" class="btn-floating btn-li btn-sm">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a type="button" class="btn-floating btn-git btn-sm">
+        <i class="fab fa-github"></i>
+      </a>
+
+    <% end %>
+    <!-- Form -->
+
+  </div>
+
+</div>
+<!-- Material form login -->

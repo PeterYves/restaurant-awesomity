@@ -1,4 +1,5 @@
-<%= form_with(model: resto, local: true) do |form| %>
+  <!-- Default form contact -->
+  <%= form_with(model: resto, local: true) do |form| %>
   <% if resto.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(resto.errors.count, "error") %> prohibited this resto from being saved:</h2>
@@ -10,75 +11,61 @@
       </ul>
     </div>
   <% end %>
+  <div class="text-center border border-light p-5" style="width:50%;margin:auto">
+    <p class="h4 mb-4">New Restaurent</p>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <!-- Name -->
+    <%= form.text_field :name,id:"defaultContactFormName", class:"form-control mb-4", placeholder:"Name" %>
+    <!-- Location -->
+    <%= form.text_field :location,id:"defaultContactFormEmail", class:"form-control mb-4", placeholder:"Location" %>
+    <!-- photo -->
+   <div class="file-field">
+    <div class="btn btn-primary btn-sm float-left">
+      <span>Choose file</span>
+      <%= form.file_field :photo %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Photo %>
-    <%= form.file_field :photo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Website %>
-    <%= form.text_field :website %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Online_Delivery %>
-    <%= form.select(:online_delivery, options_for_select([['yes','yes'],['no','no']])) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Table_Booking %>
-    <%= form.select(:table_booking, options_for_select([['yes','yes'],['no','no']])) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Cuisine %>
-    <%= form.text_field :cuisine %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Currency %>
-    <%= form.select(:currency, options_for_select([['$','$'],['rwfs','rwfs']])) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Price_Range %>
-    <%= form.number_field :price_range %>
-  </div>
-
+  <%= form.text_field :website,id:"defaultContactFormEmail", class:"form-control mb-4", placeholder:"Website" %>
+    <!-- online delivery -->
+    <label>Online Delivery</label>
+    <%= form.select(:online_delivery, options_for_select([['yes','yes'],['no','no']]),class:"browser-default custom-select mb-4") %>
+    <!-- table booking -->
+    <label>Table Booking</label>
+    <%= form.select(:table_booking, options_for_select([['yes','yes'],['no','no']]),class:"browser-default custom-select mb-4") %>
+    <!-- currency -->
+    <label>Currency</label>
+    <%= form.select(:currency, options_for_select([['$','$'],['rwfs','rwfs']]),class:"browser-default custom-select mb-4") %>
+    <!-- cuisine -->
+    <%= form.text_field :cuisine,id:"defaultContactFormEmail", class:"form-control mb-4", placeholder:"Cuisine" %>
+     <!-- price range -->
+     <%= form.number_field :price_range,class:"form-control mb-4",placeholder:"Price Range" %>
+</div>
   <hr>
 
-  <% Lunch.all.each do |lunch| %>
-  <% if current_user.id == lunch.user_id %>
-  <div class = "label">
-  
-  <%= lunch.name %>&nbsp;(<%= lunch.price %>)
-  <%= form.check_box :lunch_ids, { multiple: true, checked: lunch[:checked], disabled: lunch[:disabled], include_hidden: false }, lunch[:id] %>
+  <div class="row m-auto">
+    <div class="col text-left">
+      <h3 class="text-orange">Breakfast</h3>
+      <%= form.fields_for :breakfasts do |ff| %>
+      <div class="form-group form-inline">
+        <%= ff.text_field :name, class: "form-control mr-2", placeholder: "Add item" %>
+        <%= ff.text_field :price, class: "form-control w-25", placeholder: "Price" %>
+      </div>
+      <% end %>
+    </div>
+    <div class="col text-left">
+      <h3 class="text-orange">Lunch</h3>
+      <%= form.fields_for :lunches do |ff| %>
+        <div class="form-group form-inline">
+          <%= ff.text_field :name, class: "form-control mr-2", placeholder: "Add item" %>
+          <%= ff.text_field :price, class: "form-control w-25", placeholder: "Price" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <% end%>
-  <% end %>
-
-  <% Breakfast.all.each do |breakfast| %>
-  <% if current_user.id == breakfast.user_id %>
-  <div class = "label">
-  
-  <%= breakfast.name %>&nbsp;(<%= breakfast.price %>)
-  <%= form.check_box :breakfast_ids, { multiple: true, checked: breakfast[:checked], disabled: breakfast[:disabled], include_hidden: false }, breakfast[:id] %>
-  </div>
-  <% end%>
-  <% end %>
 
   <div class="actions">
-    <%= form.submit class:'btn btn-success btn-sm' %>
+    <!-- Send button -->
+    <button class="btn btn-info btn-block btn-sm-3" type="submit">Submit</button>
   </div>
 <% end %>

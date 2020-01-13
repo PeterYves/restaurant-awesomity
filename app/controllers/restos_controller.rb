@@ -12,29 +12,23 @@ class RestosController < ApplicationController
   # GET /restos/1
   # GET /restos/1.json
   def show
-    @lunch = Lunch.all
-    @breakfast = Breakfast.all
   end
 
   # GET /restos/new
   def new
     @resto = Resto.new
-    @resto.lunches.build
-    @resto.resto_lunches.build
-    @resto.breakfasts.build
-    @resto.resto_breakfasts.build
+    4.times {@resto.breakfasts.build}
+    4.times {@resto.lunches.build}
   end
 
   # GET /restos/1/edit
   def edit
+    1.times {@resto.breakfasts.build}
+    1.times {@resto.lunches.build}
   end
 
-  # POST /restos
-  # POST /restos.json
   def create
     @resto = current_user.restos.build(resto_params)
-    @lunches= Lunch.all
-    @breakfasts= Breakfast.all
     respond_to do |format|
       if @resto.save
         format.html { redirect_to @resto, notice: 'Resto was successfully created.' }
@@ -46,8 +40,6 @@ class RestosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /restos/1
-  # PATCH/PUT /restos/1.json
   def update
     respond_to do |format|
       if @resto.update(resto_params)
@@ -60,8 +52,6 @@ class RestosController < ApplicationController
     end
   end
 
-  # DELETE /restos/1
-  # DELETE /restos/1.json
   def destroy
     @resto.destroy
     respond_to do |format|
@@ -78,6 +68,6 @@ class RestosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def resto_params
-      params.require(:resto).permit(:name, :location,:photo,:image_cache,:website,:currency,:price_range,:table_booking,:cuisine,:online_delivery,:user_id, lunch_ids: [],breakfast_ids: [])
+      params.require(:resto).permit(:name, :location,:photo,:image_cache,:website,:currency,:price_range,:table_booking,:cuisine,:online_delivery,:user_id, breakfasts_attributes: [:id, :name, :price], lunches_attributes: [:id, :name, :price])
     end
 end

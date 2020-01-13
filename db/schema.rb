@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_11_171215) do
+ActiveRecord::Schema.define(version: 2020_01_11_154845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_171215) do
     t.bigint "resto_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.index ["resto_id"], name: "index_breakfasts_on_resto_id"
-    t.index ["user_id"], name: "index_breakfasts_on_user_id"
   end
 
   create_table "lunches", force: :cascade do |t|
@@ -32,27 +30,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_171215) do
     t.bigint "resto_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
     t.index ["resto_id"], name: "index_lunches_on_resto_id"
-    t.index ["user_id"], name: "index_lunches_on_user_id"
-  end
-
-  create_table "resto_breakfasts", force: :cascade do |t|
-    t.bigint "breakfast_id", null: false
-    t.bigint "resto_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["breakfast_id"], name: "index_resto_breakfasts_on_breakfast_id"
-    t.index ["resto_id"], name: "index_resto_breakfasts_on_resto_id"
-  end
-
-  create_table "resto_lunches", force: :cascade do |t|
-    t.bigint "lunch_id", null: false
-    t.bigint "resto_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["lunch_id"], name: "index_resto_lunches_on_lunch_id"
-    t.index ["resto_id"], name: "index_resto_lunches_on_resto_id"
   end
 
   create_table "restos", force: :cascade do |t|
@@ -68,10 +46,6 @@ ActiveRecord::Schema.define(version: 2020_01_11_171215) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.bigint "lunch_id"
-    t.bigint "breakfast_id"
-    t.index ["breakfast_id"], name: "index_restos_on_breakfast_id"
-    t.index ["lunch_id"], name: "index_restos_on_lunch_id"
     t.index ["user_id"], name: "index_restos_on_user_id"
   end
 
@@ -88,14 +62,6 @@ ActiveRecord::Schema.define(version: 2020_01_11_171215) do
   end
 
   add_foreign_key "breakfasts", "restos"
-  add_foreign_key "breakfasts", "users"
   add_foreign_key "lunches", "restos"
-  add_foreign_key "lunches", "users"
-  add_foreign_key "resto_breakfasts", "breakfasts"
-  add_foreign_key "resto_breakfasts", "restos"
-  add_foreign_key "resto_lunches", "lunches"
-  add_foreign_key "resto_lunches", "restos"
-  add_foreign_key "restos", "breakfasts"
-  add_foreign_key "restos", "lunches"
   add_foreign_key "restos", "users"
 end

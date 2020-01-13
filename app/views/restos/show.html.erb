@@ -67,9 +67,10 @@
 </div>
 <% end %>
 <%if current_user && @resto.user_id==current_user.id%>
-<%= link_to 'Edit', edit_resto_path(@resto) %> |
-<%= link_to 'Back', restos_path %>
+<%= link_to 'Update Menu', edit_resto_path(@resto), class: "btn btn-sm",style:'background:#ff6000;color:white' %> |
+<%= link_to 'Back', restos_path,class: "btn btn-outline-info btn-sm" %>
 <% end %>
 </div>
 </div>
 </div>
+
